@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VivaAI — Create a new AI interview session">
+    <title>VivaAI — Create Interview</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <a class="logo" href="/">
+            <div class="logo-icon">🤖</div>
+            <span class="logo-text">VivaAI</span>
+        </a>
+        <span class="header-badge">New Session</span>
+    </header>
+
+    <main class="container" style="padding-top: 60px;">
+        <div style="max-width: 520px; margin: 0 auto;">
+            <h1 style="margin-bottom: 8px;">Create Interview</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 32px;">Set up a new AI interview session below.</p>
+
+            <div class="card fade-in">
+                <div id="statusMsg" class="status-msg"></div>
+
+                <div class="form-group">
+                    <label class="form-label" for="candidateName">Candidate Name</label>
+                    <input class="form-input" id="candidateName" type="text" placeholder="e.g. Rahul Sharma"
+                        autocomplete="name">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="role">Target Role</label>
+                    <select class="form-input" id="role">
+                        <option value="Software Engineer">Software Engineer</option>
+                        <option value="Frontend Developer">Frontend Developer</option>
+                        <option value="Backend Developer">Backend Developer</option>
+                        <option value="Full Stack Developer">Full Stack Developer</option>
+                        <option value="Data Scientist">Data Scientist</option>
+                        <option value="Machine Learning Engineer">Machine Learning Engineer</option>
+                        <option value="DevOps Engineer">DevOps Engineer</option>
+                        <option value="Product Manager">Product Manager</option>
+                        <option value="UI/UX Designer">UI/UX Designer</option>
+                        <option value="Business Analyst">Business Analyst</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary btn-lg" id="startBtn" onclick="createInterview()" style="width: 100%;">
+                    🚀 Start Interview
+                </button>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="/" style="color: var(--text-muted); font-size: 0.85rem; text-decoration: none;">← Back to
+                    Home</a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showStatus(msg, type = "info") {
+            const el = document.getElementById("statusMsg");
+            el.textContent = msg;
+            el.className = `status-msg status-${type}`;
+            el.style.display = "block";
+        }
+
+        async function createInterview() {
+            const name = document.getElementById("candidateName").value.trim();
+            const role = document.getElementById("role").value;
+
+            if (!name) {
+                showStatus("Please enter your name.", "warning");
+                return;
+            }
+
+            const btn = document.getElementById("startBtn");
+            btn.disabled = true;
+            btn.textContent = "Creating…";
+
+            const roomId = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+            try {
+                const res = await fetch("/api/interview/create", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ room_id: roomId, role, candidate_name: name })
+                });
+                const data = await res.json();
+                if (data.status === "created") {
+                    window.location.href = `/interview/${data.room_id}`;
+                } else {
+                    throw new Error(data.error || "Unknown error");
+                }
+            } catch (err) {
+                showStatus("Error: " + err.message, "error");
+                btn.disabled = false;
+                btn.textContent = "🚀 Start Interview";
+            }
+        }
+    </script>
+
+</body>
+
+</html>

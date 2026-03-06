@@ -1,0 +1,25 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+class Config:
+    SECRET_KEY = os.environ.get("SECRET_KEY", "vivaai-secret")
+
+    SARVAM_API_KEY = os.environ.get("SARVAM_API_KEY", "")
+
+    DEBUG = os.environ.get("DEBUG", "True").lower() in ("true", "1", "yes")
+
+    HOST = os.environ.get("HOST", "0.0.0.0")
+    PORT = int(os.environ.get("PORT", 5000))
+
+    INTERVIEW_DURATION_MINUTES = int(os.environ.get("INTERVIEW_DURATION_MINUTES", 10))
+    MAX_QUESTIONS = int(os.environ.get("MAX_QUESTIONS", 6))
+
+    AUDIO_FOLDER = "static/audio/questions"
+    ANSWERS_FOLDER = "static/audio/answers"
+
+    DATABASE_PATH = "database/vivaai.db"
+
+    STUN_SERVER = "stun:stun.l.google.com:19302"
