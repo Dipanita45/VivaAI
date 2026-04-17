@@ -1,4 +1,4 @@
-# Contributor Covenant Code of Conduct — VivaAI NSoC'26
+# Contributor Covenant Code of Conduct — VivaAI
 
 ![Community](https://img.shields.io/badge/Community-Welcoming-brightgreen?style=for-the-badge)
 ![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-blue?style=for-the-badge) 
@@ -134,7 +134,7 @@ Consequences for violations:
 
 ## 📜 Attribution  
 
-This Code of Conduct is adapted from the [Contributor Covenant (v3.0)](https://www.contributor-covenant.org/version/3/0/code_of_conduct/), with modifications tailored for **VivaAI under the Nexus Spring of Code (NSoC’26)**.  
+This Code of Conduct is adapted from the [Contributor Covenant (v3.0)](https://www.contributor-covenant.org/version/3/0/code_of_conduct/), with modifications tailored for **VivaAI** .  
 
 📌 Original work licensed under [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)  
 
